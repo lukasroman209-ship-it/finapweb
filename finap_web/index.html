@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinAp - Uč sa financie</title>
+    <meta name="description"
+        content="FinAp je najlepšia aplikácia na zvládnutie finančných konceptov prostredníctvom interaktívnych lekcií, grafov a minihier.">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">FinAp</div>
+            <nav class="nav-links">
+                <a href="#features">Funkcie</a>
+                <a href="kurzy.html">Kurzy</a>
+                <a href="ai.html">AI Bot</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="#demo">Vyskúšať Demo</a>
+                <a href="#demo" class="btn-primary" style="margin-left: 15px;">Začať</a>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Prepnúť režim">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h2>Uč sa financie zábavne!</h2>
+                    <p>Objavte FinAp – slovenskú aplikáciu, ktorá vás naučí financiám hravo a bez stresu. Čakajú vás
+                        interaktívne lekcie, reálne grafy a minihry v štýle tých najlepších vzdelávacích apiek!.</p>
+                    <a href="#demo" class="btn-primary large">Vyskúšaj FinAp Demo teraz</a>
+                </div>
+                <div class="hero-image">
+                    <div class="app-mockup glass-effect">
+                        <div class="mockup-header">Kurz FinAp</div>
+                        <div class="mockup-body">
+                            <div class="mockup-item">
+                                <div class="mockup-icon" style="color: var(--duo-blue);">📈</div>
+                                <div class="mockup-item-text">
+                                    <h3>Grafy a Trendy</h3>
+                                    <p>Vizualizuj svoj pokrok</p>
+                                </div>
+                            </div>
+                            <div class="mockup-item">
+                                <div class="mockup-icon" style="color: var(--duo-green-dark);">🎮</div>
+                                <div class="mockup-item-text">
+                                    <h3>Minihry</h3>
+                                    <p>Hraj a uč sa</p>
+                                </div>
+                            </div>
+                            <a href="#demo" class="mockup-button">Začať sa učiť</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container text-center">
+                <h2 class="section-title">Prečo si vybrať FinAp?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon pulse">📝</div>
+                        <h3>Interaktívne testy</h3>
+                        <p>Otestuj si svoje znalosti pomocou rýchlych kvízov navrhnutých na posilnenie tvojej pamäte.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon float">📊</div>
+                        <h3>Finančné grafy</h3>
+                        <p>Nauč sa čítať a chápať finančné grafy jednoducho a intuitívne.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon bounce">🕹️</div>
+                        <h3>Gamifikované učenie</h3>
+                        <p>Získavaj body, udržuj si sériu a uč sa financie hraním.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="demo-section">
+            <div class="container text-center">
+                <h2 class="section-title">Vyskúšaj si FinAp</h2>
+                <p class="demo-subtitle">Zahraj si Demo priamo v prehliadači.</p>
+                <div class="iframe-container">
+                    <iframe src="finap.html" title="FinAp App" id="appFrame"></iframe>
+                </div>
+                <!-- Device controls -->
+                <div class="controls mt-4">
+                    <button class="btn-secondary" onclick="document.getElementById('appFrame').src='finap.html'">Otvoriť
+                        Test</button>
+                    <button class="btn-secondary"
+                        onclick="document.getElementById('appFrame').src='finapgraf.html'">Otvoriť Graf</button>
+                    <button class="btn-secondary" onclick="document.getElementById('appFrame').src='game.html'">Otvoriť
+                        Hru</button>
+                    <button class="btn-primary"
+                        onclick="document.getElementById('appFrame').src='finap.html'">Domov</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rest of main content -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <h2 class="section-title text-center">Často kladené otázky</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">Je aplikácia FinAp zadarmo? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Áno, základné verzia FinAp je a vždy bude zadarmo pre všetkých študentov.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Pre koho je aplikácia určená? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Pre každého, kto chce lepšie rozumieť svojim peniazom – od študentov až po dospelých.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Budú pribúdať nové kurzy? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Samozrejme! Každý mesiac pridávame nové lekcie a interaktívne hry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-section">
+            <div class="container text-center">
+                <div class="newsletter-box">
+                    <h2>Dostávaj finančné tipy</h2>
+                    <p>Prihlás sa na odber noviniek a získaj exkluzívny prístup k novým kurzom.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Ďakujeme za odber!');">
+                        <input type="email" placeholder="Tvoj e-mail" required>
+                        <button type="submit" class="btn-primary">Odoberať</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="kontakt" class="contact-section">
+            <div class="container text-center">
+                <div class="contact-container single-column">
+                    <div class="contact-info">
+                        <div class="info-item centered">
+                            <h2>Kontaktuj nás na:</h2>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:lukasroman209@gmail.com" class="contact-email">lukasroman209@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <div class="footer-logo">FinAp</div>
+            <p>&copy; 2026 FinAp Learning. Všetky práva vyhradené.</p>
+        </div>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

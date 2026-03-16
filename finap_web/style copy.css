@@ -1,0 +1,190 @@
+/* Duolingo Farby (bezo zmeny) */
+        :root {
+            --duo-green-dark: #58a700;
+            --duo-green-light: #79c536;
+            --duo-blue: #1899e4;
+            --duo-red: #ff4b4b;
+            --duo-bg: #f7f7f7;
+            --duo-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--duo-bg);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            box-shadow: 0 4px 15px var(--duo-shadow);
+            box-sizing: border-box;
+            overflow: hidden;
+            min-height: 500px; 
+        }
+
+        /* --- Všeobecné prvky --- */
+
+        .screen {
+            display: none;
+            padding: 20px;
+        }
+        .screen.active {
+            display: block;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 15px 10px;
+            color: white;
+            background-color: var(--duo-green-dark);
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 3px 0 #3a6b00;
+        }
+        .subheader {
+            font-size: 1.2em;
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .action-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 0 #3a6b00;
+            background-color: var(--duo-green-dark);
+            transition: background-color 0.1s;
+        }
+        .action-button:active {
+            box-shadow: 0 1px 0 #3a6b00;
+            transform: translateY(3px);
+        }
+        
+        /* --- MAIN MENU Štýl (Moduly) --- */
+        .module-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            border: 2px solid var(--duo-blue);
+            cursor: pointer;
+            transition: background-color 0.1s;
+            box-shadow: 0 3px 0 rgba(24, 153, 228, 0.3);
+        }
+        .module-item:hover {
+            background-color: #f0f8ff;
+        }
+        .module-icon {
+            font-size: 2em;
+            margin-right: 15px;
+            color: var(--duo-blue);
+        }
+        .module-info h3 {
+            margin: 0;
+            color: #333;
+        }
+        .module-info p {
+            margin: 2px 0 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* --- LEKCIE/ŠTUDIJNÝ PLÁN (Štýly) --- */
+        
+        #menu-screen .header {
+            background-color: var(--duo-blue);
+            box-shadow: 0 3px 0 #0f5c8c;
+        }
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px var(--duo-shadow);
+            border-bottom: 4px solid var(--duo-green-dark); 
+            transition: border-bottom-color 0.3s;
+        }
+        .lesson-icon {
+            font-size: 2.5em;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #eee;
+            color: var(--duo-green-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid var(--duo-green-dark);
+        }
+        .lesson-item.locked {
+            border-bottom: 4px solid #ccc !important;
+            opacity: 0.6;
+            cursor: default;
+        }
+        .lesson-item.completed {
+            border-bottom: 4px solid var(--duo-blue);
+        }
+        .lesson-item.completed h3 {
+             color: var(--duo-blue);
+        }
+        .lesson-icon.locked {
+            border-color: #ccc !important;
+            color: #ccc !important;
+        }
+
+        /* --- TEST ŠTÝLY --- */
+        .answer-option {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 2px solid var(--duo-blue);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.1s, border-color 0.1s;
+        }
+        .answer-option:hover {
+            background-color: #f0f8ff;
+        }
+        
+        /* Spätná väzba po kliknutí */
+        .answer-option.correct {
+            background-color: var(--duo-green-light);
+            border-color: var(--duo-green-dark);
+            color: white;
+        }
+        .answer-option.incorrect {
+            background-color: var(--duo-red);
+            border-color: #cc0000;
+            color: white;
+        }
+        .answer-option.correct:not(.incorrect) {
+            background-color: var(--duo-green-light);
+            border-color: var(--duo-green-dark);
+            color: white;
+        }
+        #quiz-continue {
+            background-color: var(--duo-blue);
+            box-shadow: 0 4px 0 #0f5c8c;
+        }

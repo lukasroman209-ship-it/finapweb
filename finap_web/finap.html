@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investičné Sektory 🏦</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="app-body">
+
+    <div class="app-container">
+
+        <div id="main-menu-screen" class="screen active">
+            <div class="header">VÍTAM ŤA!</div>
+            <div class="subheader">Vyber si Sektor a začni.</div>
+
+            <div class="module-list">
+                <div class="module-item" onclick="startModule('zaklady')">
+                    <div class="module-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <div class="module-info">
+                        <h3>Základy financií</h3>
+                        <p>Prejdi si základy financií.</p>
+                    </div>
+                </div>
+
+                <div class="module-item" onclick="startModule('investovanie')">
+                    <div class="module-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="module-info">
+                        <h3>Investovanie (Akcie, Fondy, ETF)</h3>
+                        <p>Od základov až po pasívne ETF investovanie.</p>
+                    </div>
+                </div>
+
+                <div class="module-item" onclick="startModule('krypto')">
+                    <div class="module-icon"><i class="fab fa-bitcoin"></i></div>
+                    <div class="module-info">
+                        <h3>Krypto (Bitcoin, NFT)</h3>
+                        <p>Digitálne aktíva a blockchain.</p>
+                    </div>
+                </div>
+
+                <div class="module-item" onclick="startModule('budgeting')">
+                    <div class="module-icon"><i class="fas fa-receipt"></i></div>
+                    <div class="module-info">
+                        <h3>Budgeting</h3>
+                        <p>Tracker výdavkov a ako ušetriť.</p>
+                    </div>
+                </div>
+
+                <div class="module-item" onclick="startModule('psychologia')">
+                    <div class="module-icon"><i class="fas fa-brain"></i></div>
+                    <div class="module-info">
+                        <h3>Psychológia peňazí</h3>
+                        <p>Ako nás ovplyvňujú emócie pri míňaní.</p>
+                    </div>
+                </div>
+
+                <div class="module-item" onclick="startModule('hypoteky')">
+                    <div class="module-icon"><i class="fas fa-home"></i></div>
+                    <div class="module-info">
+                        <h3>Bankovníctvo</h3>
+                        <p>Čo poskytujú banky a ako fungujú.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding: 0 20px 20px;">
+                <a href="game.html" style="text-decoration: none;">
+                    <button class="action-button"
+                        style="background-color: #1cb0f6; box-shadow: 0 4px 0 #0f5c8c; margin-top: 10px;">
+                        🎮 Spustiť finančnú hru
+                    </button>
+                </a>
+                <a href="finapgraf.html" style="text-decoration: none;">
+                    <button class="action-button"
+                        style="background-color: #58a700; box-shadow: 0 4px 0 #3a6b00; margin-top: 10px;">
+                        📈 Pozrieť investičný graf
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="menu-screen" class="screen">
+            <div class="header">ŠTUDIJNÝ PLÁN: <span id="module-title"></span></div>
+
+            <div class="module-header-info subheader" id="module-desc">
+                Vyber si ktorúkoľvek lekciu a začni sa vzdelávať.
+            </div>
+
+            <div id="dynamic-lesson-list" class="lesson-list"></div>
+
+            <button class="action-button" style="background-color: #333; box-shadow: 0 4px 0 #111; margin-top: 20px;"
+                onclick="showScreen('main-menu-screen')">Späť na Výber Sektora 🔙</button>
+        </div>
+
+        <div style="text-align: center; padding: 20px 0;">
+            <button onclick="resetProgress()" style="padding: 10px 20px; cursor: pointer;">Resetovať postup</button>
+        </div>
+
+        <div id="lesson-screen" class="screen">
+            <div class="header">LEKCIA: <span id="lesson-title"></span></div>
+
+            <div id="lesson-content">
+                <div class="poucka-box">
+                    <p id="lesson-text"></p>
+                </div>
+            </div>
+
+            <button id="start-quiz-button" class="action-button">ZAČAŤ KRÁTKY TEST! ✅</button>
+            <button class="action-button" style="background-color: #777; box-shadow: 0 4px 0 #555;"
+                onclick="showScreen('menu-screen')">Späť na Študijný plán</button>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="header">TEST: PREVER SI VEDOMOSTI 🤔</div>
+
+            <div style="padding: 20px 0;">
+                <p id="question-text" style="font-weight: bold; font-size: 1.1em;"></p>
+                <div id="answers-container"></div>
+
+                <button id="quiz-continue" class="action-button" style="display: none; margin-top: 20px;">POKRAČOVAŤ NA
+                    ŠTUDIJNÝ PLÁN 🥳</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="data.js"></script>
+
+    <script>
+        let currentModule = '';
+        let currentLessonKey = '';
+        let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || {};
+
+        // --- FUNKCIE PREPÍNANIE OBRAZOVIEK ---
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+
+            // Pri návrate na zoznam lekcií ich znovu vykreslíme (kvôli aktualizácii stavu 'Dokončené')
+            if (screenId === 'menu-screen' && currentModule) {
+                renderLessons();
+            }
+        }
+
+        function startModule(key) {
+            currentModule = key;
+            const moduleInfo = modules[key];
+
+            document.getElementById('module-title').textContent = moduleInfo.title;
+
+            // Nastavenie popisu modulu, ak existuje v data.js
+            if (moduleInfo.description) {
+                document.getElementById('module-desc').textContent = moduleInfo.description;
+            }
+
+            renderLessons(); // Vykreslíme lekcie pre tento konkrétny modul
+            showScreen('menu-screen');
+        }
+
+        // --- FUNKCIA: Dynamické vykreslenie lekcií bez zamykania ---
+        function renderLessons() {
+            const lessonListContainer = document.getElementById('dynamic-lesson-list');
+            lessonListContainer.innerHTML = ''; // Vymažeme predošlé lekcie
+
+            const moduleInfo = modules[currentModule];
+            const moduleLessons = moduleInfo.lessonKeys || [];
+
+            // Ošetrenie pre prázdne moduly (Krypto, Bankovníctvo)
+            if (moduleLessons.length === 0) {
+                lessonListContainer.innerHTML = '<p style="text-align: center; color: #777; padding: 20px;">Tento modul zatiaľ neobsahuje žiadne lekcie.</p>';
+                return;
+            }
+
+            moduleLessons.forEach((key, index) => {
+                const lesson = lessons[key];
+                const isCompleted = completedLessons[key];
+
+                // Predvolená ikona
+                const iconClass = lesson.icon || 'fas fa-book';
+
+                const getCssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#58cc02';
+                const iconColor = isCompleted ? getCssVar('--duo-blue') : getCssVar('--duo-green-dark');
+
+                // Vytvorenie HTML elementu lekcie
+                const lessonItem = document.createElement('div');
+                lessonItem.className = `lesson-item ${isCompleted ? 'completed' : ''}`;
+                lessonItem.onclick = () => startLesson(key); // Všetky lekcie sú vždy klikateľné
+
+                lessonItem.innerHTML = `
+                <div class="lesson-icon" style="color: ${iconColor}; border-color: ${iconColor};">
+                    <i class="${iconClass}"></i>
+                </div>
+                <div>
+                    <h3>${index + 1}. ${lesson.title}</h3>
+                    <p>${isCompleted ? 'Dokončené! ✨' : (lesson.initial_desc || 'Klikni a začni lekciu.')}</p>
+                </div>
+            `;
+
+                lessonListContainer.appendChild(lessonItem);
+            });
+        }
+
+        function startLesson(key) {
+            const lesson = lessons[key];
+            currentLessonKey = key;
+
+            document.getElementById('lesson-title').textContent = lesson.title;
+            let formattedText = lesson.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            document.getElementById('lesson-text').innerHTML = formattedText;
+
+            const startQuizButton = document.getElementById('start-quiz-button');
+            startQuizButton.onclick = () => startQuiz(lesson.quiz);
+
+            showScreen('lesson-screen');
+        }
+
+        // --- FUNKCIE PRE TEST ---
+
+        function startQuiz(quizData) {
+            const answersContainer = document.getElementById('answers-container');
+            answersContainer.innerHTML = '';
+
+            document.getElementById('question-text').textContent = quizData.question;
+            document.getElementById('quiz-continue').style.display = 'none';
+            document.getElementById('quiz-continue').onclick = handleLessonComplete;
+
+            quizData.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'answer-option';
+                optionDiv.textContent = option.text;
+                optionDiv.setAttribute('data-index', index);
+
+                optionDiv.onclick = (event) => checkAnswer(event.target, option.correct, answersContainer);
+                answersContainer.appendChild(optionDiv);
+            });
+
+            showScreen('quiz-screen');
+        }
+
+        function checkAnswer(selectedElement, isCorrect, container) {
+            container.querySelectorAll('.answer-option').forEach(el => {
+                el.onclick = null;
+            });
+
+            if (isCorrect) {
+                selectedElement.classList.add('correct');
+                selectedElement.textContent += ' (Správne! 🎉)';
+            } else {
+                selectedElement.classList.add('incorrect');
+                selectedElement.textContent += ' (Nesprávne 😔)';
+
+                const correctIndex = lessons[currentLessonKey].quiz.options.findIndex(opt => opt.correct);
+                const correctOption = container.querySelector(`[data-index="${correctIndex}"]`);
+                if (correctOption) {
+                    correctOption.classList.add('correct');
+                    correctOption.textContent += ' (Správna Odpoveď)';
+                }
+            }
+            document.getElementById('quiz-continue').style.display = 'block';
+        }
+
+        function handleLessonComplete() {
+            completedLessons[currentLessonKey] = true;
+            localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+            showScreen('menu-screen');
+        }
+
+        function resetProgress() {
+            if (confirm("Naozaj chceš zmazať svoj postup?")) {
+                localStorage.removeItem('completedLessons');
+                completedLessons = {};
+                if (currentModule) {
+                    renderLessons();
+                }
+            }
+        }
+
+        // Inicializácia pri načítaní stránky
+        document.addEventListener('DOMContentLoaded', () => {
+            showScreen('main-menu-screen');
+        });
+
+    </script>
+</body>
+
+</html>

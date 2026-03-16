@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulátor: Cesta k bohatstvu 🎮</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- ŠPECIFICKÉ ŠTÝLY PRE HRU --- */
+        .game-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .game-stat-box {
+            background: #f4f4f5;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e5e5e5;
+        }
+
+        .game-stat-label {
+            display: block;
+            font-size: 0.8rem;
+            color: #777;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .game-stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .game-money-val {
+            color: #58cc02;
+        }
+
+        .game-debt-val {
+            color: #ff4b4b;
+        }
+
+        .game-panels {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .game-panels {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .game-panel {
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #e5e5e5;
+        }
+
+        .game-panel h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: #afafaf;
+            border-bottom: 2px solid #f4f4f5;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .game-panel h3 {
+            font-size: 1rem;
+            color: #333;
+            margin: 15px 0 10px 0;
+        }
+
+        .game-progress-container {
+            background-color: #e5e5e5;
+            height: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        #happiness-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4b4b, #ffc800, #58cc02);
+            width: 50%;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .game-action-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .game-finance-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .game-finance-controls input {
+            padding: 10px;
+            border: 2px solid #e5e5e5;
+            border-radius: 10px;
+            width: 60px;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+        }
+
+        .game-finance-controls input:focus {
+            border-color: #1cb0f6;
+        }
+
+        #game-event-log {
+            max-height: 150px;
+            overflow-y: auto;
+            background: #f4f4f5;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .log-entry {
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .log-pos {
+            color: #58cc02;
+            font-weight: bold;
+        }
+
+        .log-neg {
+            color: #ff4b4b;
+            font-weight: bold;
+        }
+
+        .log-neu {
+            color: #1cb0f6;
+        }
+
+        #game-over-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            border-radius: inherit;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #game-over-title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Úprava kontajneru len pre túto stránku */
+        .app-container {
+            position: relative;
+            max-width: 900px;
+            background: #fff;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body
+    style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #f0f4f8; margin: 0; padding: 20px; box-sizing: border-box;">
+
+    <div class="app-container">
+
+        <div class="header"
+            style="background-color: #1cb0f6; padding: 20px; text-align: center; color: white; border-radius: 15px 15px 0 0;">
+            <h1 style="margin: 0; font-size: 1.8rem;">SIMULÁTOR ŽIVOTA 🎮</h1>
+            <div style="font-size: 1.1rem; margin-top: 10px;">Mesiac: <strong id="month-count">1</strong> / 24</div>
+        </div>
+
+        <div style="padding: 20px;">
+            <section class="game-stats-grid">
+                <div class="game-stat-box">
+                    <span class="game-stat-label">Hotovosť</span>
+                    <span class="game-stat-value game-money-val"><span id="cash-val">1000</span> €</span>
+                </div>
+                <div class="game-stat-box">
+                    <span class="game-stat-label">Úspory (+5%)</span>
+                    <span class="game-stat-value game-money-val"><span id="savings-val">0</span> €</span>
+                </div>
+                <div class="game-stat-box">
+                    <span class="game-stat-label">Dlh (-15%)</span>
+                    <span class="game-stat-value game-debt-val"><span id="debt-val">0</span> €</span>
+                </div>
+                <div class="game-stat-box">
+                    <span class="game-stat-label">Čistý majetok</span>
+                    <span class="game-stat-value"><span id="networth-val">1000</span> €</span>
+                </div>
+                <div class="game-stat-box" style="grid-column: 1 / -1;">
+                    <span class="game-stat-label">Spokojnosť (<span id="happiness-val">50</span>/100)</span>
+                    <div class="game-progress-container">
+                        <div id="happiness-bar" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="game-panels">
+                <div class="game-panel">
+                    <h2>Hlavná akcia (Vyber 1 za mesiac)</h2>
+                    <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Výplata: <strong
+                            id="salary-val">500</strong> € | Výdavky: <strong>300</strong> €</p>
+
+                    <div class="game-action-group">
+                        <button class="action-button"
+                            style="background-color: #1cb0f6; box-shadow: 0 4px 0 #1899d6; padding: 10px;"
+                            onclick="game.work()">💼 Práca<br><small>(+Výplata, -15 Spok.)</small></button>
+                        <button class="action-button"
+                            style="background-color: #ce82ff; box-shadow: 0 4px 0 #a568cc; padding: 10px;"
+                            onclick="game.study()">📚 Kurz (200 €)<br><small>(+Výplata, -20 Spok.)</small></button>
+                        <button class="action-button"
+                            style="background-color: #58cc02; box-shadow: 0 4px 0 #46a302; padding: 10px; grid-column: 1 / -1;"
+                            onclick="game.rest()">🧘 Oddych<br><small>(+25 Spokojnosť)</small></button>
+                    </div>
+
+                    <h2>Nákupy (Zvýšenie spokojnosti)</h2>
+                    <div class="game-action-group">
+                        <button class="action-button"
+                            style="background-color: #ffc800; box-shadow: 0 4px 0 #cc9f00; color: #333; padding: 10px;"
+                            onclick="game.buyItem('Káva', 10, 5)">☕ Káva<br><small>(10 €, +5 Spok.)</small></button>
+                        <button class="action-button"
+                            style="background-color: #ffc800; box-shadow: 0 4px 0 #cc9f00; color: #333; padding: 10px;"
+                            onclick="game.buyItem('Hra', 300, 30)">🎮 Hra<br><small>(300 €, +30 Spok.)</small></button>
+                        <button class="action-button"
+                            style="background-color: #ffc800; box-shadow: 0 4px 0 #cc9f00; color: #333; padding: 10px; grid-column: 1 / -1;"
+                            onclick="game.buyItem('Dovolenka', 1000, 70)">✈️ Dovolenka<br><small>(1000 €, +70
+                                Spok.)</small></button>
+                    </div>
+                </div>
+
+                <div class="game-panel">
+                    <h2>Banka a Trhy</h2>
+
+                    <h3>Účty</h3>
+                    <div class="game-finance-controls">
+                        <button class="action-button"
+                            style="background-color: #58cc02; box-shadow: 0 4px 0 #46a302; padding: 10px; flex: 1;"
+                            onclick="game.manageBank('deposit', 100)">Vložiť 100 €</button>
+                        <button class="action-button"
+                            style="background-color: #ff9600; box-shadow: 0 4px 0 #cc7800; padding: 10px; flex: 1;"
+                            onclick="game.manageBank('withdraw', 100)">Vybrať 100 €</button>
+                    </div>
+                    <button class="action-button"
+                        style="background-color: #ff4b4b; box-shadow: 0 4px 0 #cc3c3c; padding: 10px; width: 100%; margin-bottom: 15px;"
+                        onclick="game.payDebt(100)">Splatiť dlh 100 €</button>
+
+                    <h3>Akcie</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Cena: <strong id="stock-price-val">50.00</strong>
+                        € | Vlastníš: <strong id="stocks-owned-val">0</strong></p>
+                    <div class="game-finance-controls">
+                        <input type="number" id="stock-qty" value="1" min="1">
+                        <button class="action-button"
+                            style="background-color: #1cb0f6; box-shadow: 0 4px 0 #1899d6; padding: 10px; flex: 1;"
+                            onclick="game.tradeStocks('buy')">Kúpiť</button>
+                        <button class="action-button"
+                            style="background-color: #ff9600; box-shadow: 0 4px 0 #cc7800; padding: 10px; flex: 1;"
+                            onclick="game.tradeStocks('sell')">Predať</button>
+                    </div>
+                </div>
+
+                <div class="game-panel">
+                    <h2>Udalosti</h2>
+                    <div id="game-event-log"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <button class="action-button" id="end-month-btn"
+                    style="background-color: #ff4b4b; box-shadow: 0 5px 0 #cc3c3c; font-size: 1.2rem; padding: 15px; width: 100%; margin-bottom: 15px;"
+                    onclick="game.endMonth()" disabled>Koniec mesiaca (Zaplatiť účty)</button>
+                <p style="margin-bottom: 20px; font-size: 0.85rem; color: #777;">Najprv vykonaj Hlavnú akciu
+                    (Práca/Kurz/Oddych), aby si mohol ukončiť mesiac.</p>
+
+                <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                    <a href="finap.html" style="text-decoration: none; width: 100%;">
+                        <button class="action-button"
+                            style="background-color: #e5e5e5; color: #777; box-shadow: 0 4px 0 #cccccc; width: 100%; padding: 10px 30px;">🔙
+                            Späť na vzdelávacie lekcie</button>
+                    </a>
+                    <a href="finapgraf.html" style="text-decoration: none; width: 100%;">
+                        <button class="action-button"
+                            style="background-color: #1899e4; box-shadow: 0 4px 0 #0f5c8c; width: 100%; padding: 10px 30px;">📈
+                            Otvoriť investičný graf</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-over-overlay">
+            <h1 id="game-over-title">KONIEC HRY</h1>
+            <p id="game-over-message" style="font-size: 1.2rem; margin-bottom: 20px;"></p>
+            <div class="game-stat-box" style="margin-bottom: 30px; width: 80%;">
+                <span class="game-stat-label">Konečný majetok</span>
+                <span class="game-stat-value"><span id="final-net-worth"></span> €</span>
+            </div>
+            <button class="action-button"
+                style="background-color: #1cb0f6; box-shadow: 0 4px 0 #1899d6; font-size: 1.2rem; padding: 15px 30px; margin-bottom: 15px;"
+                onclick="initGame()">Hrať znova</button>
+            <a href="finap.html" style="text-decoration: none; width: 100%;">
+                <button class="action-button"
+                    style="background-color: #e5e5e5; color: #777; box-shadow: 0 4px 0 #cccccc; margin-bottom: 10px;">Späť
+                    na vzdelávacie lekcie</button>
+            </a>
+            <a href="finapgraf.html" style="text-decoration: none; width: 100%;">
+                <button class="action-button"
+                    style="background-color: #1899e4; color: #fff; box-shadow: 0 4px 0 #0f5c8c;">Otvoriť investičný
+                    graf</button>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        class FinancialGame {
+            constructor() {
+                this.month = 1;
+                this.maxMonths = 24;
+                this.cash = 1000;
+                this.savings = 0;
+                this.debt = 0;
+                this.happiness = 50;
+                this.salary = 500;
+                this.expenses = 300;
+                this.stocksOwned = 0;
+                this.stockPrice = 50;
+
+                this.actionTakenThisMonth = false;
+                this.isGameOver = false;
+
+                this.log("Vitaj v krysích pretekoch! Preži 2 roky bez bankrotu a vyhorenia.", "neu");
+                this.updateUI();
+            }
+
+            updateUI() {
+                document.getElementById('month-count').innerText = this.month;
+                document.getElementById('cash-val').innerText = this.cash.toFixed(2);
+                document.getElementById('savings-val').innerText = this.savings.toFixed(2);
+                document.getElementById('debt-val').innerText = this.debt.toFixed(2);
+                document.getElementById('networth-val').innerText = this.getNetWorth().toFixed(2);
+                document.getElementById('happiness-val').innerText = this.happiness;
+                document.getElementById('happiness-bar').style.width = this.happiness + "%";
+                document.getElementById('salary-val').innerText = this.salary;
+                document.getElementById('stock-price-val').innerText = this.stockPrice.toFixed(2);
+                document.getElementById('stocks-owned-val').innerText = this.stocksOwned;
+
+                const endBtn = document.getElementById('end-month-btn');
+                endBtn.disabled = !this.actionTakenThisMonth;
+                if (this.actionTakenThisMonth) {
+                    endBtn.style.backgroundColor = '#ff4b4b';
+                } else {
+                    endBtn.style.backgroundColor = '#e5e5e5';
+                }
+
+                const mainBtns = document.querySelectorAll('.game-action-group button:not([onclick^="game.buyItem"])');
+                mainBtns.forEach(btn => {
+                    btn.disabled = this.actionTakenThisMonth;
+                    btn.style.opacity = this.actionTakenThisMonth ? "0.5" : "1";
+                });
+            }
+
+            log(message, type = "neu") {
+                const container = document.getElementById('game-event-log');
+                const entry = document.createElement('div');
+                entry.className = `log-entry log-${type}`;
+                entry.innerHTML = `<strong>M${this.month}:</strong> ${message}`;
+                container.prepend(entry);
+            }
+
+            getNetWorth() {
+                return this.cash + this.savings + (this.stocksOwned * this.stockPrice) - this.debt;
+            }
+
+            modifyHappiness(amount) {
+                this.happiness += amount;
+                if (this.happiness > 100) this.happiness = 100;
+                if (this.happiness <= 0) {
+                    this.happiness = 0;
+                    this.triggerGameOver("Vyhorenie! Tvoja spokojnosť klesla na nulu.");
+                }
+            }
+
+            work() {
+                this.cash += this.salary;
+                this.modifyHappiness(-15);
+                this.log(`Tvrdo si pracoval. Výplata +${this.salary} €. Spokojnosť -15.`, "pos");
+                this.actionTakenThisMonth = true;
+                this.updateUI();
+            }
+
+            study() {
+                if (this.cash >= 200) {
+                    this.cash -= 200;
+                    this.salary += 150;
+                    this.modifyHappiness(-20);
+                    this.log("Kúpil si si kurz (-200 €). Výplata sa natrvalo zvýšila o 150 €! Spok. -20.", "pos");
+                    this.actionTakenThisMonth = true;
+                } else {
+                    this.log("Nemáš dosť hotovosti na vzdelávanie!", "neg");
+                }
+                this.updateUI();
+            }
+
+            rest() {
+                this.modifyHappiness(25);
+                this.log("Zobral si si voľno pre duševné zdravie. Spokojnosť +25.", "pos");
+                this.actionTakenThisMonth = true;
+                this.updateUI();
+            }
+
+            buyItem(name, cost, hapGain) {
+                if (this.cash >= cost) {
+                    this.cash -= cost;
+                    this.modifyHappiness(hapGain);
+                    this.log(`Kúpil si: ${name} (-${cost} €). Spokojnosť +${hapGain}.`, "neu");
+                } else {
+                    this.log(`Nemáš dosť peňazí na ${name}!`, "neg");
+                }
+                this.updateUI();
+            }
+
+            manageBank(action, amount) {
+                if (action === 'deposit') {
+                    if (this.cash >= amount) {
+                        this.cash -= amount;
+                        this.savings += amount;
+                        this.log(`Vložil si ${amount} € na sporiaci účet.`, "neu");
+                    } else { this.log("Nemáš dosť hotovosti na vklad.", "neg"); }
+                } else if (action === 'withdraw') {
+                    if (this.savings >= amount) {
+                        this.savings -= amount;
+                        this.cash += amount;
+                        this.log(`Vybral si ${amount} € z úspor.`, "neu");
+                    } else { this.log("Nemáš dosť úspor na výber.", "neg"); }
+                }
+                this.updateUI();
+            }
+
+            payDebt(amount) {
+                if (this.cash >= amount && this.debt > 0) {
+                    let payAmount = Math.min(amount, this.debt);
+                    this.cash -= payAmount;
+                    this.debt -= payAmount;
+                    this.log(`Splatil si ${payAmount} € z dlhu.`, "pos");
+                } else if (this.debt === 0) {
+                    this.log("Si bez dlhov!", "neu");
+                } else {
+                    this.log("Nemáš dosť hotovosti na splátku dlhu.", "neg");
+                }
+                this.updateUI();
+            }
+
+            tradeStocks(action) {
+                const qtyInput = document.getElementById('stock-qty');
+                let qty = parseInt(qtyInput.value);
+                if (isNaN(qty) || qty <= 0) qty = 1;
+
+                if (action === 'buy') {
+                    let cost = qty * this.stockPrice;
+                    if (this.cash >= cost) {
+                        this.cash -= cost;
+                        this.stocksOwned += qty;
+                        this.log(`Kúpil si ${qty} ks akcií za ${cost.toFixed(2)} €.`, "neu");
+                    } else { this.log("Nemáš peniaze na nákup akcií.", "neg"); }
+                } else if (action === 'sell') {
+                    if (this.stocksOwned >= qty) {
+                        let revenue = qty * this.stockPrice;
+                        this.cash += revenue;
+                        this.stocksOwned -= qty;
+                        this.log(`Predal si ${qty} ks akcií za ${revenue.toFixed(2)} €.`, "neu");
+                    } else { this.log("Nemáš toľko akcií na predaj.", "neg"); }
+                }
+                this.updateUI();
+            }
+
+            endMonth() {
+                if (this.isGameOver) return;
+
+                this.log("--- Koniec Mesiaca ---", "neu");
+
+                this.cash -= this.expenses;
+                this.log(`Zaplatené mesačné výdavky: -${this.expenses} €`, "neg");
+
+                if (this.savings > 0) {
+                    let interest = this.savings * 0.05;
+                    this.savings += interest;
+                    this.log(`Zisk z úspor (5%): +${interest.toFixed(2)} €`, "pos");
+                }
+                if (this.debt > 0) {
+                    let penalty = this.debt * 0.15;
+                    this.debt += penalty;
+                    this.log(`Úroky z dlhu (15%): -${penalty.toFixed(2)} €`, "neg");
+                }
+
+                let marketChange = (Math.random() * 0.8 - 0.3);
+                this.stockPrice *= (1 + marketChange);
+                this.stockPrice = Math.max(1, this.stockPrice);
+
+                if (marketChange < -0.2) this.log("📉 KRÁCH NA TRHU! Akcie padli.", "neg");
+                else if (marketChange > 0.3) this.log("📈 BÝČÍ TRH! Akcie raketovo stúpli.", "pos");
+
+                if (Math.random() < 0.25) {
+                    if (Math.random() < 0.5) {
+                        this.cash -= 300;
+                        this.modifyHappiness(-10);
+                        this.log("🚨 Nečakaný výdavok za opravu auta! -300 €, -10 Spokojnosť.", "neg");
+                    } else {
+                        this.cash += 250;
+                        this.log("🍀 Dostal si preplatok z daní! +250 €.", "pos");
+                    }
+                }
+
+                if (this.cash < 0) {
+                    let overdraft = Math.abs(this.cash);
+                    this.debt += overdraft;
+                    this.cash = 0;
+                    this.log(`⚠️ Prečerpanie účtu! ${overdraft.toFixed(2)} € presunutých do drahého dlhu.`, "neg");
+                    this.modifyHappiness(-5);
+                }
+
+                this.month++;
+                this.modifyHappiness(-5);
+                this.actionTakenThisMonth = false;
+
+                if (this.month > this.maxMonths) {
+                    this.triggerGameOver("Prežil si 2 roky! Gratulujem!", true);
+                }
+
+                this.updateUI();
+            }
+
+            triggerGameOver(message, won = false) {
+                this.isGameOver = true;
+                document.getElementById('game-over-overlay').style.display = 'flex';
+                document.getElementById('game-over-message').innerText = message;
+                document.getElementById('final-net-worth').innerText = this.getNetWorth().toFixed(2);
+                document.getElementById('game-over-title').innerText = won ? "VÝHRA!" : "BANKROT / VYHORENIE";
+                document.getElementById('game-over-title').style.color = won ? "#58cc02" : "#ff4b4b";
+            }
+        }
+
+        let game;
+        function initGame() {
+            game = new FinancialGame();
+            document.getElementById('game-over-overlay').style.display = 'none';
+            document.getElementById('game-event-log').innerHTML = '';
+        }
+
+        // Automaticky spusti hru pri načítaní stránky
+        window.onload = () => {
+            initGame();
+        };
+    </script>
+</body>
+
+</html>
