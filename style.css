@@ -1133,6 +1133,78 @@ footer p {
     color: var(--duo-blue);
 }
 
+/* Consolidated About/Team Section */
+.about-section {
+    padding: 100px 0;
+    background-color: var(--header-bg);
+}
+
+.team-group {
+    margin-top: 80px;
+    border-top: 2px solid var(--border-color);
+    padding-top: 60px;
+}
+
+/* Join Section (Newsletter + Support) */
+.join-section {
+    padding: 100px 0;
+    background-color: var(--duo-bg);
+}
+
+.join-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+.join-box {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 28px;
+    border: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.join-box h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.support-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.support-pill {
+    flex: 1;
+    background: var(--header-bg);
+    padding: 15px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 2px solid var(--border-color);
+    color: var(--text-dark);
+}
+
+.support-pill i {
+    color: var(--duo-blue);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 992px) {
+    .join-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Support Section */
 .support-section {
     padding: 100px 0;
@@ -1214,6 +1286,34 @@ footer p {
 
 /* Responsive Overrides */
 @media (max-width: 768px) {
+    .main-header .container {
+        flex-direction: column !important;
+        gap: 15px !important;
+        padding: 15px !important;
+        height: auto !important;
+    }
+
+    .nav-links {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        font-size: 0.85rem !important;
+        width: 100% !important;
+    }
+
+    .nav-links a.btn-primary {
+        margin-left: 0 !important;
+    }
+
+    .hero-text h2 {
+        font-size: 2.2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
     .mission-grid {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -1221,15 +1321,23 @@ footer p {
     
     .schools-box {
         flex-direction: column;
-        padding: 40px 30px;
+        padding: 40px 20px;
         text-align: center;
     }
     
+    .schools-content h2 {
+        font-size: 1.8rem;
+    }
+
     .schools-icon-box {
         display: none;
     }
     
-    .hero-text h2 {
-        font-size: 2.5rem;
+    .join-grid {
+        gap: 20px;
+    }
+
+    .join-box {
+        padding: 30px 20px;
     }
 }
