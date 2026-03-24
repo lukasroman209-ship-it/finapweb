@@ -37,19 +37,19 @@ const teamData = {
         name: "Lukáš Roman",
         role: "Founder",
         image: "img/team/lukas.png",
-        bio: "Zakladateľ a vizionár projektu FinAp. Verí, že finančná gramotnosť by mala byť pevnou súčasťou vzdelávania každého mladého človeka. Lukáš vedie strategický rozvoj a partnerstvá."
+        bio: "Volám sa Lukáš Roman a pochádzam z Bardejova. Študujem letecké a kozmické technológie na Technickej univerzite v Košiciach a zároveň externe právo na Univerzite Pavla Jozefa Šafárika. Popri štúdiu sa dlhodobo venujem osobným financiám a finančnej gramotnosti, ktoré ma zaujali najmä z praktického hľadiska – ako robiť lepšie rozhodnutia v bežnom živote. FinAp vznikol ako moja iniciatíva preniesť tieto poznatky ďalej a vytvoriť niečo, čo má reálny dopad. Zároveň ho vnímam ako prvý krok k tomu, aby som sa postupne presadil vo svete financií."
     },
     'peter': {
         name: "Peter Sabol",
         role: "Co-Founder",
         image: "img/team/peter.png",
-        bio: "Spoluzakladateľ, ktorý sa stará o budovanie vzťahov so školami a metodický rozvoj vzdelávacieho obsahu. Peter zabezpečuje, aby naše prednášky boli interaktívne a zrozumiteľné."
+        bio: "Ahoj, volám sa Peter Sabol a pochádzam z Bardejova a som študentom inžinierskeho stupňa na TUKE v odbore Počítačové siete. Zároveň študujem inžiniersky program Finančné riadenie podniku na EUBA. Mám ukončené bakalárske štúdium a dlhodobo sa zaujímam o prepájanie technológií a financií. Popri štúdiu sa venujem investovaniu a aktívne pracujem na svojom osobnom rozvoji – či už v oblasti vedomostí, disciplíny alebo dlhodobého myslenia. Zaujíma ma budovanie hodnoty, efektívne riadenie zdrojov a neustále zlepšovanie samého seba. Rád by som svoje skúsenosti posúval ďalej a pomáhal ľuďom lepšie porozumieť investovaniu a práci s financiami vďaka projektu FinAp."
     },
     'adrian': {
         name: "Adrian Cimbaľák",
         role: "Co-Founder",
         image: "img/team/adrian.png",
-        bio: "Ahoj, som Adrian Cimbaľák, mám 20 rokov a pochádzam z Bardejova. Momentálne študujem na TUKE v Košiciach. Mám skúsenosti z oblasti financií a pracoval som aj ako finančný poradca, čo mi dalo reálny pohľad na to, ako ľudia narábajú s peniazmi v každodennom živote. Spolu s kolegami sme sa rozhodli vytvoriť túto aplikáciu, pretože sme si uvedomili, že mladí ľudia často nevedia pracovať s financiami – hlavne preto, že im to nikto poriadne nevysvetlil. Naším cieľom je to zmeniť a pomôcť im pochopiť peniaze jednoduchou a hravou formou. Baví ma prichádzať s novými nápadmi a neustále na sebe pracovať – či už v oblasti technológií, alebo osobného rozvoja. Mojím cieľom je vytvárať veci, ktoré majú reálny význam a pomáhajú ľuďom. A popri tom si raz kúpiť vilu na kopci s výhľadom na more – ideálne legálne a bez toho, aby som jedol instantné rezance do konca života"
+        bio: "Ahoj, som Adrian Cimbaľák, mám 20 rokov a som z Bardejova. Študujem na TUKE v Košiciach a mám skúsenosti z financií, vrátane práce finančného poradcu.  S kolegami sme vytvorili aplikáciu, pretože mladí ľudia často nerozumejú peniazom – chceme im to vysvetliť jednoducho a hravo.  Baví ma tvoriť nové veci, rozvíjať sa a pracovať na projektoch, ktoré majú zmysel. A raz si chcem kúpiť vilu s výhľadom na more – ideálne bez instantných rezancov"
     }
 };
 
