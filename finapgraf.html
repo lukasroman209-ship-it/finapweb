@@ -11,11 +11,11 @@
     <style>
         /* Duolingo Farby */
         :root {
-            --duo-green-dark: #58a700;
-            --duo-green-light: #79c536;
-            --duo-blue: #1899e4;
-            --duo-bg: #f7f7f7;
-            --duo-shadow: rgba(0, 0, 0, 0.1);
+            --fin-green-dark: #58a700;
+            --fin-green-light: #79c536;
+            --fin-blue: #1899e4;
+            --fin-bg: #f7f7f7;
+            --fin-shadow: rgba(0, 0, 0, 0.1);
 
             --chart-border-color: #58a700;
             --chart-bg-color: rgba(121, 197, 54, 0.1);
@@ -25,7 +25,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px 10px;
-            background-color: var(--duo-bg);
+            background-color: var(--fin-bg);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,7 +38,7 @@
             padding: 0;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 15px var(--duo-shadow);
+            box-shadow: 0 4px 15px var(--fin-shadow);
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -46,19 +46,19 @@
         #header {
             text-align: center;
             padding: 20px 0 10px;
-            color: var(--duo-green-dark);
+            color: var(--fin-green-dark);
             font-size: 1.6em;
             font-weight: bold;
         }
 
         #result-display {
-            background-color: var(--duo-green-light);
+            background-color: var(--fin-green-light);
             color: white;
             padding: 15px 10px;
             text-align: center;
             font-weight: bold;
             margin-bottom: 20px;
-            box-shadow: 0 5px 0 var(--duo-green-dark);
+            box-shadow: 0 5px 0 var(--fin-green-dark);
         }
 
         #finalSum {
@@ -115,7 +115,7 @@
 
         .value-display {
             font-size: 1.1em;
-            color: var(--duo-blue);
+            color: var(--fin-blue);
             text-align: right;
             font-weight: bold;
             width: 80px;
@@ -137,8 +137,8 @@
             height: 20px;
             border-radius: 50%;
             background: white;
-            border: 4px solid var(--duo-green-dark);
-            box-shadow: 0 1px 3px var(--duo-shadow);
+            border: 4px solid var(--fin-green-dark);
+            box-shadow: 0 1px 3px var(--fin-shadow);
             transition: background .15s ease-in-out;
         }
     </style>
@@ -150,7 +150,7 @@
 
         <div id="header">
             <i class="fas fa-graduation-cap"
-                style="color: var(--duo-green-dark); font-size: 1.5em; margin-right: 5px;"></i>
+                style="color: var(--fin-green-dark); font-size: 1.5em; margin-right: 5px;"></i>
             INVESTIČNÁ LEKCIA DŇA!
         </div>
 
@@ -228,7 +228,7 @@
          */
         function calculateGrowth(years, monthlyAmount, annualRate) {
             const monthlyRate = annualRate / 100 / 12;
-            
+
             let labels = [];
             let data = [];
             let totalValue = 0;

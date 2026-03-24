@@ -8,6 +8,52 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Premium / Locked Styles */
+        .video-card.is-premium {
+            position: relative;
+            border-color: #ffd70044 !important;
+        }
+
+        .video-card.is-premium .video-container {
+            filter: grayscale(0.8) brightness(0.7);
+            pointer-events: none;
+        }
+
+        .lock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            color: white;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .lock-overlay i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .lock-overlay span {
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            background: #ffd700;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-tag.premium {
+            background: #ffd700 !important;
+            color: #000 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,11 +61,11 @@
         <div class="container">
             <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">FinAp</a></div>
             <nav class="nav-links">
-                <a href="index.html#features">Funkcie</a>
+                <a href="index.html#o-nas">O nás</a>
+                <a href="index.html#schools">Pre školy</a>
+                <a href="index.html#kontakt">Kontakt</a>
                 <a href="kurzy.html" class="active-link">Kurzy</a>
                 <a href="ai.html">AI Bot</a>
-                <a href="index.html#kontakt">Kontakt</a>
-                <a href="index.html#demo">Vyskúšať Demo</a>
                 <a href="index.html#demo" class="btn-primary" style="margin-left: 15px;">Začať</a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Prepnúť režim">
                     <span id="theme-icon">🌙</span>
@@ -29,31 +75,281 @@
     </header>
 
     <main>
-        <section class="hero-mini">
-            <div class="container text-center">
-                <h2>Video Kurzy 🎓</h2>
-                <p>Nauč sa spravovať svoje financie cez praktické video návody.</p>
-            </div>
-        </section>
+        <!-- Course Grid View -->
+        <div id="grid-view">
+            <section class="hero-mini">
+                <div class="container text-center">
+                    <h2>Video Kurzy 🎓</h2>
+                    <p>Nauč sa spravovať svoje financie cez praktické video návody.</p>
+                </div>
+            </section>
 
-        <section class="video-grid-section">
-            <div class="container text-center">
-                <div class="coming-soon-card">
-                    <div class="coming-soon-icon">🎥</div>
-                    <h3>Video kurzy sú v príprave!</h3>
-                    <p>Momentálne pripravujeme sériu edukačných videí z nášho YouTube kanála. Čoskoro tu nájdeš kompletné návody na správu financií.</p>
-                    <div class="status-badge">Pripravujeme pre vás</div>
+            <section class="video-grid-section">
+                <div class="container">
+                    <!-- Category Filter Bar -->
+                    <div class="filter-bar"
+                        style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px;">
+                        <button class="filter-btn active" onclick="filterCourses('všetko')"
+                            data-filter="všetko">Všetko</button>
+                        <button class="filter-btn" onclick="filterCourses('zaklady')"
+                            data-filter="zaklady">Základy</button>
+                        <button class="filter-btn" onclick="filterCourses('peniaze')"
+                            data-filter="peniaze">Peniaze</button>
+                        <button class="filter-btn" onclick="filterCourses('investovanie')"
+                            data-filter="investovanie">Investovanie</button>
+                        <button class="filter-btn" onclick="filterCourses('banky')"
+                            data-filter="banky">Bankovníctvo</button>
+                        <button class="filter-btn" onclick="filterCourses('krypto')"
+                            data-filter="krypto">Krypto</button>
+                    </div>
 
-                    <div class="lead-form-inline">
-                        <h4>Chcem vidieť lekcie ako prvý!</h4>
-                        <form class="lead-form-group" onsubmit="event.preventDefault(); alert('Skvelé! Budeme ťa informovať o nových videách.');">
-                            <input type="email" placeholder="Tvoj e-mail" required>
-                            <button type="submit" class="btn-primary">Chcem kurzy</button>
+                    <div class="video-grid">
+                        <!-- Video Course 1 -->
+                        <div class="video-card" data-category="investovanie">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Základy</span>
+                                <h3>Základy investovania</h3>
+                                <p>V tejto lekcii sa dozvieš, ako začať s budovaním majetku a na čo si dať pozor pri
+                                    prvých krokoch.</p>
+                                <button class="btn-primary small" onclick="openLesson('zaklady-investovania')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 2 -->
+                        <div class="video-card" data-category="peniaze">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Rozpočet</span>
+                                <h3>Ako si vytvoriť rozpočet</h3>
+                                <p>Praktický návod, ako sledovať svoje výdavky a ušetriť viac peňazí každý mesiac bez
+                                    stresu.</p>
+                                <button class="btn-primary small" onclick="openLesson('ako-rozpocet')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 3 -->
+                        <div class="video-card" data-category="zaklady">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Teória</span>
+                                <h3>Čo je to inflácia?</h3>
+                                <p>Pochop, prečo ceny rastú a ako môžeš ochrániť svoje úspory pred stratou hodnoty v
+                                    čase.</p>
+                                <button class="btn-primary small" onclick="openLesson('co-je-inflacia')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 4 -->
+                        <div class="video-card" data-category="banky">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Bývanie</span>
+                                <h3>Hypotéka vs. Podnájom</h3>
+                                <p>Veľké porovnanie dvoch najčastejších ciest k vlastnému alebo prenajatému bývaniu na
+                                    Slovensku.</p>
+                                <button class="btn-primary small" onclick="openLesson('hypoteka-vs-najom')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 5 -->
+                        <div class="video-card" data-category="investovanie">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Investovanie</span>
+                                <h3>Čo sú to ETF fondy?</h3>
+                                <p>Zisti, prečo sú ETF fondy najobľúbenejším nástrojom pre dlhodobé pasívne
+                                    investovanie.</p>
+                                <button class="btn-primary small" onclick="openLesson('etf-fondy')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 6 -->
+                        <div class="video-card" data-category="krypto">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Krypto</span>
+                                <h3>Kryptomeny a Bitcoin</h3>
+                                <p>Jednoduchý úvod do sveta digitálnych peňazí a technológie, ktorá mení svet financií.
+                                </p>
+                                <button class="btn-primary small" onclick="openLesson('krypto-zaklady')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 7 -->
+                        <div class="video-card" data-category="banky">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Banky</span>
+                                <h3>Kreditné karty a dlhy</h3>
+                                <p>Nauč sa, ako bezpečne používať kreditnú kartu a vyhnúť sa pasciam vysokých úrokov.
+                                </p>
+                                <button class="btn-primary small" onclick="openLesson('kreditne-karty')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Video Course 8 -->
+                        <div class="video-card" data-category="peniaze">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag">Peniaze</span>
+                                <h3>Tvorba finančnej rezervy</h3>
+                                <p>Prečo je dôležité mať "vankúš" na horšie časy a ako si ho vybudovať krok za krokom.
+                                </p>
+                                <button class="btn-primary small" onclick="openLesson('financna-rezerva')"
+                                    style="width: 100%; margin-top: 10px;">Vstúpiť</button>
+                            </div>
+                        </div>
+
+                        <!-- Premium Locked Lessons -->
+                        <div class="video-card is-premium" data-category="investovanie">
+                            <div class="video-container">
+                                <div class="lock-overlay">
+                                    <i class="fas fa-lock"></i>
+                                    <span>PREMIUM</span>
+                                </div>
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag premium">Prémiové</span>
+                                <h3>Ako na Due Diligence</h3>
+                                <p>Hĺbková previerka firiem a investícií. Nauč sa kopať hlbšie do čísel.</p>
+                                <button class="btn-secondary small" onclick="openLesson('due-diligence')"
+                                    style="width: 100%; margin-top: 10px;">Odomknúť Premium</button>
+                            </div>
+                        </div>
+
+                        <div class="video-card is-premium" data-category="investovanie">
+                            <div class="video-container">
+                                <div class="lock-overlay">
+                                    <i class="fas fa-lock"></i>
+                                    <span>PREMIUM</span>
+                                </div>
+                                <iframe src="https://www.youtube-nocookie.com/embed/ETxmCCsMoD0"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                            <div class="video-card-content">
+                                <span class="video-tag premium">Prémiové</span>
+                                <h3>Pokročilé investičné stratégie</h3>
+                                <p>Stratégie pre skúsených investorov. Short-selling, opcie a iné.</p>
+                                <button class="btn-secondary small" onclick="openLesson('pokrocile-strategie')"
+                                    style="width: 100%; margin-top: 10px;">Odomknúť Premium</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lead-form-inline mt-4"
+                        style="margin-top: 60px; background: var(--hover-bg); padding: 40px; border-radius: 24px;">
+                        <h4>Chceš dostávať nové lekcie e-mailom?</h4>
+                        <p style="margin-bottom: 20px; color: var(--text-light);">Prihlás sa a nenechaj si ujsť žiadne
+                            nové video zo sveta financií.</p>
+                        <form class="lead-form-group"
+                            onsubmit="event.preventDefault(); alert('Skvelé! Budeme ťa informovať o nových videách.');"
+                            style="display: flex; gap: 10px; max-width: 500px; margin: 0 auto;">
+                            <input type="email" placeholder="Tvoj e-mail" required
+                                style="flex: 1; padding: 12px 16px; border-radius: 12px; border: 2px solid var(--border-color);">
+                            <button type="submit" class="btn-primary">Odoberať</button>
                         </form>
                     </div>
                 </div>
+            </section>
+        </div>
+
+        <!-- Lesson Detail View (Initially Hidden) -->
+        <div id="lesson-view" style="display: none;">
+            <div class="lesson-header-bar"
+                style="background: var(--header-bg); border-bottom: 2px solid var(--border-color); padding: 20px 0;">
+                <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn-secondary small" onclick="closeLesson()"
+                        style="margin: 0; padding: 10px 20px;"><i class="fas fa-arrow-left"></i> Späť na kurzy</button>
+                    <h2 id="lesson-title-display" style="margin: 0; font-weight: 900; font-size: 1.5rem;">Názov lekcie
+                    </h2>
+                </div>
             </div>
-        </section>
+
+            <div class="container" style="padding: 40px 20px;">
+                <div class="lesson-tabs"
+                    style="display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid var(--border-color);">
+                    <button class="tab-btn active" data-tab="video" onclick="switchTab('video')">🎥 Video</button>
+                    <button class="tab-btn" data-tab="notes" onclick="switchTab('notes')">📝 Poznámky</button>
+                    <button class="tab-btn" data-tab="quiz" onclick="switchTab('quiz')">✍️ Test</button>
+                </div>
+
+                <div class="lesson-content-area" id="lesson-content-area">
+                    <!-- Video Container -->
+                    <div id="tab-video-container" class="video-container"
+                        style="display: block; max-width: 900px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-radius: 24px; overflow: hidden;">
+                        <iframe id="lesson-video-frame" src="" title="Lesson Video" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen style="width: 100%; aspect-ratio: 16/9;"></iframe>
+                    </div>
+
+                    <!-- Notes Content -->
+                    <div id="tab-notes-container" class="notes-content"
+                        style="display: none; max-width: 800px; margin: 0 auto;">
+                        <!-- Notes injected here -->
+                    </div>
+
+                    <!-- Quiz Content -->
+                    <div id="tab-quiz-container" class="quiz-content"
+                        style="display: none; max-width: 800px; margin: 0 auto;">
+                        <!-- Quiz injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -62,7 +358,10 @@
             <p>&copy; 2026 FinAp Learning. Všetky práva vyhradené.</p>
         </div>
     </footer>
+
     <script src="scripts.js"></script>
+    <script src="kurzy_data.js"></script>
+    <script src="kurzy_script.js"></script>
 </body>
 
 </html>

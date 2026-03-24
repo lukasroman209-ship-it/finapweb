@@ -5,11 +5,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinAp - Uč sa financie</title>
-    <meta name="description" content="Objavte FinAp – slovenskú aplikáciu, ktorá vás naučí financiám hravo a bez stresu. Čakajú vás
-                        interaktívne lekcie, reálne grafy a minihry v štýle tých najlepších vzdelávacích apiek!.">
+    <meta name="description" content="Objavte FinAp – slovenskú platformu, ktorá vás naučí financiám hravo a bez stresu. Čakajú vás
+                        interaktívne lekcie, reálne grafy a AI bot v štýle tých najlepších vzdelávacích platforiem!.">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Team Member Card & Modal Styles */
+        .team-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            border-color: var(--fin-blue) !important;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--fin-shadow);
+        }
+
+        .team-img-container {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            overflow: hidden;
+            border: 4px solid var(--border-color);
+            transition: border-color 0.3s ease;
+        }
+
+        .team-card:hover .team-img-container {
+            border-color: var(--fin-blue);
+        }
+
+        .team-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Modal Structure */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .team-modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 550px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.4s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            font-size: 35px;
+            font-weight: bold;
+            color: var(--text-light);
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: var(--fin-blue);
+        }
+
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .member-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--fin-blue);
+        }
+
+        .member-header h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 !important;
+            color: var(--text-dark);
+        }
+
+        .member-role {
+            color: var(--fin-blue);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .member-bio {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            text-align: left;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -17,13 +141,11 @@
         <div class="container">
             <div class="logo">FinAp</div>
             <nav class="nav-links">
-                <a href="#features">Funkcie</a>
                 <a href="#o-nas">O nás</a>
                 <a href="#schools">Pre školy</a>
+                <a href="#kontakt">Kontakt</a>
                 <a href="kurzy.html">Kurzy</a>
                 <a href="ai.html">AI Bot</a>
-                <a href="#kontakt">Kontakt</a>
-                <a href="#demo">Vyskúšať Demo</a>
                 <a href="#demo" class="btn-primary" style="margin-left: 15px;">Začať</a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Prepnúť režim">
                     <span id="theme-icon">🌙</span>
@@ -37,8 +159,9 @@
             <div class="container hero-content">
                 <div class="hero-text">
                     <h2>Uč sa financie zábavne!</h2>
-                    <p>Objavte FinAp – slovenskú aplikáciu, ktorá vás naučí financiám hravo a bez stresu. Čakajú vás
-                        interaktívne lekcie, reálne grafy a minihry v štýle tých najlepších vzdelávacích apiek!.</p>
+                    <p>Objavte FinAp – jednoduchú slovenskú platformu, ktorá vás naučí financiám hravo a bez stresu.
+                        Čakajú vás
+                        interaktívne lekcie, reálne grafy a AI asistent pre tvoj finančný rast.</p>
                     <a href="#demo" class="btn-primary large">Vyskúšaj FinAp Demo teraz</a>
                 </div>
                 <div class="hero-image">
@@ -46,14 +169,14 @@
                         <div class="mockup-header">Kurz FinAp</div>
                         <div class="mockup-body">
                             <div class="mockup-item">
-                                <div class="mockup-icon" style="color: var(--duo-blue);">📈</div>
+                                <div class="mockup-icon" style="color: var(--fin-blue);">📈</div>
                                 <div class="mockup-item-text">
                                     <h3>Grafy a Trendy</h3>
                                     <p>Vizualizuj svoj pokrok</p>
                                 </div>
                             </div>
                             <div class="mockup-item">
-                                <div class="mockup-icon" style="color: var(--duo-green-dark);">🎮</div>
+                                <div class="mockup-icon" style="color: var(--fin-green-dark);">🎮</div>
                                 <div class="mockup-item-text">
                                     <h3>Minihry</h3>
                                     <p>Hraj a uč sa</p>
@@ -71,24 +194,24 @@
                 <div class="mission-grid">
                     <div class="mission-text">
                         <span class="badge">Naša Misia</span>
-                        <h2>Sme o.z. FinAp – učíme Slovensko rozumieť peniazom</h2>
-                        <p>Sme nezisková organizácia, ktorej cieľom je zvýšiť finančnú gramotnosť na Slovensku. Veríme,
+                        <h2>Sme FinAp o.z. – učíme Slovensko rozumieť peniazom</h2>
+                        <p>Sme nezisková iniciatíva, ktorej cieľom je zvýšiť finančnú gramotnosť na Slovensku. Veríme,
                             že vzdelanie v oblasti financií by malo byť dostupné pre každého, bez ohľadu na vek či
                             zázemie.</p>
                         <ul class="mission-list">
                             <li><i class="fas fa-check-circle"></i> Bezplatné prednášky na základných a stredných
                                 školách</li>
-                            <li><i class="fas fa-check-circle"></i> Inovatívna vzdelávacia aplikácia pre študentov</li>
+                            <li><i class="fas fa-check-circle"></i> Inovatívna vzdelávacia platforma pre študentov</li>
                             <li><i class="fas fa-check-circle"></i> Praktické materiály pre učiteľov a rodičov</li>
                         </ul>
                     </div>
                     <div class="mission-stats">
                         <div class="stat-card">
-                            <div class="stat-number">50+</div>
+                            <div class="stat-number">0</div>
                             <div class="stat-label">Navštívených škôl</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">2000+</div>
+                            <div class="stat-number">0</div>
                             <div class="stat-label">Vzdelaných študentov</div>
                         </div>
                     </div>
@@ -97,18 +220,24 @@
                 <div id="team" class="team-group text-center">
                     <h2 class="section-title">Kto za tým stojí?</h2>
                     <div class="team-grid">
-                        <div class="team-card">
-                            <div class="team-img-placeholder"><i class="fas fa-user-tie"></i></div>
+                        <div class="team-card" onclick="showMember('lukas')">
+                            <div class="team-img-container">
+                                <img src="img/team/lukas.png" alt="Lukáš Roman">
+                            </div>
                             <h3>Lukáš Roman</h3>
                             <p>Founder</p>
                         </div>
-                        <div class="team-card">
-                            <div class="team-img-placeholder"><i class="fas fa-user-graduate"></i></div>
+                        <div class="team-card" onclick="showMember('peter')">
+                            <div class="team-img-container">
+                                <img src="img/team/peter.png" alt="Peter Sabol">
+                            </div>
                             <h3>Peter Sabol</h3>
                             <p>Co-Founder</p>
                         </div>
-                        <div class="team-card">
-                            <div class="team-img-placeholder"><i class="fas fa-code"></i></div>
+                        <div class="team-card" onclick="showMember('adrian')">
+                            <div class="team-img-container">
+                                <img src="img/team/adrian.png" alt="Adrian Cimbaľák">
+                            </div>
                             <h3>Adrian Cimbaľák</h3>
                             <p>Co-Founder</p>
                         </div>
@@ -119,23 +248,23 @@
 
         <section id="features" class="features">
             <div class="container text-center">
-                <h2 class="section-title">Prečo si vybrať FinAp?</h2>
+                <h2 class="section-title">Prečo si vybrať platformu FinAp?</h2>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="feature-icon pulse">📝</div>
-                        <h3>Interaktívne testy</h3>
-                        <p>Otestuj si svoje znalosti pomocou rýchlych kvízov navrhnutých na posilnenie tvojej pamäte.
-                        </p>
+                        <div class="feature-icon">🌍</div>
+                        <h3>Komplexný ekosystém</h3>
+                        <p>Spájame interaktívne vzdelávanie, školské prednášky a AI technológie do jednej platformy pre
+                            váš úspech.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon float">📊</div>
-                        <h3>Finančné grafy</h3>
-                        <p>Nauč sa čítať a chápať finančné grafy jednoducho a intuitívne.</p>
+                        <div class="feature-icon">📊</div>
+                        <h3>Reálne simulácie</h3>
+                        <p>Učte sa na praktických príkladoch a grafoch, ktoré verne kopírujú skutočný svet financií.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon bounce">🕹️</div>
-                        <h3>Gamifikované učenie</h3>
-                        <p>Získavaj body, udržuj si sériu a uč sa financie hraním.</p>
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI Finančný asistent</h3>
+                        <p>Získajte okamžité odpovede na svoje otázky vďaka nášmu inteligentnému chatbotovi.</p>
                     </div>
                 </div>
             </div>
@@ -185,21 +314,41 @@
                 <h2 class="section-title text-center">Často kladené otázky</h2>
                 <div class="faq-container">
                     <div class="faq-item">
-                        <div class="faq-question">Je aplikácia FinAp zadarmo? <span>+</span></div>
+                        <div class="faq-question">Čo je to iniciatíva FinAp? <span>+</span></div>
                         <div class="faq-answer">
-                            <p>Áno, základné verzia FinAp je a vždy bude zadarmo pre všetkých študentov.</p>
+                            <p>FinAp je vzdelávacia iniciatíva zameraná na rozvoj finančnej gramotnosti a praktických
+                                životných zručností mladých ľudí na základných a stredných školách. Prinášame moderné
+                                vzdelávanie, ktoré reflektuje reálne výzvy dnešného sveta.</p>
                         </div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-question">Pre koho je aplikácia určená? <span>+</span></div>
+                        <div class="faq-question">Sú prednášky na školách spoplatnené? <span>+</span></div>
                         <div class="faq-answer">
-                            <p>Pre každého, kto chce lepšie rozumieť svojim peniazom – od študentov až po dospelých.</p>
+                            <p>Nie! Naším poslaním je šíriť osvetu, preto sú interaktívne workshopy a prednášky pre
+                                základné a stredné školy úplne <strong>ZADARMO</strong>.</p>
                         </div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-question">Budú pribúdať nové kurzy? <span>+</span></div>
+                        <div class="faq-question">V čom sa líšite od iných projektov? <span>+</span></div>
                         <div class="faq-answer">
-                            <p>Samozrejme! Každý mesiac pridávame nové lekcie a interaktívne hry.</p>
+                            <p>Odlišujeme sa vývojom vlastnej digitálnej aplikácie, ktorá prepája edukáciu s praktickými
+                                simuláciami. Mladým ľuďom umožňujeme budovať správne finančné návyky interaktívnym a
+                                dlhodobo udržateľným spôsobom.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Máte aj prémiový obsah? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Áno, popri základných kurzoch a hrách, ktoré sú zadarmo, ponúkame aj prémiový expertný
+                                obsah (napr. Due Diligence) pre tých, ktorí sa chcú v téme financií hlbšie
+                                špecializovať.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Aké sú vaše hlavné ciele? <span>+</span></div>
+                        <div class="faq-answer">
+                            <p>Naším cieľom je preklenúť medzeru medzi teoretickým školským vzdelávaním a praktickými
+                                znalosťami potrebnými pre finančné rozhodovanie v každodennom živote.</p>
                         </div>
                     </div>
                 </div>
@@ -269,6 +418,15 @@
             </p>
         </div>
     </footer>
+    <div id="team-modal" class="modal">
+        <div class="modal-content team-modal-content">
+            <span class="close-modal" onclick="closeMemberModal()">&times;</span>
+            <div id="member-detail">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <script src="scripts.js"></script>
 </body>
 
