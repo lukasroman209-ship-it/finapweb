@@ -37,13 +37,13 @@ const teamData = {
         name: "Lukáš Roman",
         role: "Founder",
         image: "img/team/lukas.png",
-        bio: "Volám sa Lukáš Roman a pochádzam z Bardejova. Študujem letecké a kozmické technológie na Technickej univerzite v Košiciach a zároveň externe právo na Univerzite Pavla Jozefa Šafárika. Popri štúdiu sa dlhodobo venujem osobným financiám a finančnej gramotnosti, ktoré ma zaujali najmä z praktického hľadiska – ako robiť lepšie rozhodnutia v bežnom živote. FinAp vznikol ako moja iniciatíva preniesť tieto poznatky ďalej a vytvoriť niečo, čo má reálny dopad. Zároveň ho vnímam ako prvý krok k tomu, aby som sa postupne presadil vo svete financií."
+        bio: "Volám sa Lukáš Roman a pochádzam z Bardejova. Študujem letecké a kozmické technológie na Technickej univerzite v Košiciach a zároveň externe právo na Univerzite Pavla Jozefa Šafárika. Popri štúdiu sa dlhodobo venujem osobným financiám a finančnej gramotnosti, ktoré ma zaujali najmä z praktického hľadiska – ako robiť lepšie rozhodnutia v bežnom živote. FinLit vznikol ako moja iniciatíva preniesť tieto poznatky ďalej a vytvoriť niečo, čo má reálny dopad. Zároveň ho vnímam ako prvý krok k tomu, aby som sa postupne presadil vo svete financií."
     },
     'peter': {
         name: "Peter Sabol",
         role: "Co-Founder",
         image: "img/team/peter.png",
-        bio: "Ahoj, volám sa Peter Sabol a pochádzam z Bardejova a som študentom inžinierskeho stupňa na TUKE v odbore Počítačové siete. Zároveň študujem inžiniersky program Finančné riadenie podniku na EUBA. Mám ukončené bakalárske štúdium a dlhodobo sa zaujímam o prepájanie technológií a financií. Popri štúdiu sa venujem investovaniu a aktívne pracujem na svojom osobnom rozvoji – či už v oblasti vedomostí, disciplíny alebo dlhodobého myslenia. Zaujíma ma budovanie hodnoty, efektívne riadenie zdrojov a neustále zlepšovanie samého seba. Rád by som svoje skúsenosti posúval ďalej a pomáhal ľuďom lepšie porozumieť investovaniu a práci s financiami vďaka projektu FinAp."
+        bio: "Ahoj, volám sa Peter Sabol a pochádzam z Bardejova a som študentom inžinierskeho stupňa na TUKE v odbore Počítačové siete. Zároveň študujem inžiniersky program Finančné riadenie podniku na EUBA. Mám ukončené bakalárske štúdium a dlhodobo sa zaujímam o prepájanie technológií a financií. Popri štúdiu sa venujem investovaniu a aktívne pracujem na svojom osobnom rozvoji – či už v oblasti vedomostí, disciplíny alebo dlhodobého myslenia. Zaujíma ma budovanie hodnoty, efektívne riadenie zdrojov a neustále zlepšovanie samého seba. Rád by som svoje skúsenosti posúval ďalej a pomáhal ľuďom lepšie porozumieť investovaniu a práci s financiami vďaka projektu FinLit."
     },
     'adrian': {
         name: "Adrian Cimbaľák",
