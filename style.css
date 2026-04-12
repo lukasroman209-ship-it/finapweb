@@ -1507,6 +1507,104 @@ footer p {
     }
 }
 
+/* Native Newsletter Form Styles */
+.newsletter-form-native {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.newsletter-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-input-group input {
+    flex: 1;
+    padding: 15px 20px;
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+    background: var(--header-bg);
+    color: var(--text-dark);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.newsletter-input-group input:focus {
+    outline: none;
+    border-color: var(--fin-blue);
+    box-shadow: 0 0 0 4px rgba(24, 153, 228, 0.1);
+}
+
+.newsletter-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    cursor: pointer;
+    text-align: left;
+}
+
+.newsletter-consent input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.success-message {
+    display: none;
+    text-align: center;
+    padding: 30px;
+    animation: fadeIn 0.5s ease;
+}
+
+.success-message i {
+    font-size: 3rem;
+    color: var(--fin-green-dark);
+    margin-bottom: 15px;
+}
+
+.success-message h3 {
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 5px;
+}
+
+.newsletter-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--text-light);
+    text-align: left;
+}
+
+.newsletter-footer p {
+    margin-bottom: 8px;
+}
+
+.newsletter-footer a {
+    color: var(--fin-blue);
+    text-decoration: underline;
+}
+
+.unsubscribe-info {
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Hidden elements */
+.hidden-fields {
+    display: none !important;
+}
+
+
 /* Support Section */
 .support-section {
     padding: 100px 0;
@@ -1600,13 +1698,15 @@ footer p {
         display: flex !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
-        gap: 10px !important;
-        font-size: 0.85rem !important;
+        gap: 8px !important;
+        font-size: 0.8rem !important;
         width: 100% !important;
     }
 
     .nav-links a.btn-primary {
         margin-left: 0 !important;
+        padding: 8px 15px !important;
+        font-size: 0.8rem !important;
     }
 
     .hero-text h2 {
@@ -1642,6 +1742,34 @@ footer p {
 
     .join-box {
         padding: 30px 20px;
+    }
+
+    /* UI Elements Fixes for Mobile */
+    .app-mockup {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .iframe-container {
+        max-width: 300px;
+        height: 600px;
+        border-width: 8px;
+    }
+
+    /* Contact Section Fix */
+    .info-item.centered {
+        flex-direction: column;
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .contact-email {
+        font-size: 1rem;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        display: block;
+        line-height: 1.2;
     }
 }
 

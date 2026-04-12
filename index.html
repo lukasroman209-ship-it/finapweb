@@ -7,6 +7,21 @@
     <title>FinLit - Uč sa financie</title>
     <meta name="description" content="Objavte FinLit – slovenskú platformu, ktorá vás naučí financiám hravo a bez stresu. Čakajú vás
                         interaktívne lekcie, reálne grafy a AI bot v štýle tých najlepších vzdelávacích platforiem!.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://finlitacademy.sk/">
+    <meta property="og:title" content="FinLit - Uč sa financie zábavne!">
+    <meta property="og:description" content="Slovenská platforma pre hravé finančné vzdelávanie. Interaktívne lekcie, simulácie a AI asistent.">
+    <meta property="og:image" content="https://finlitacademy.sk/img/og-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://finlitacademy.sk/">
+    <meta property="twitter:title" content="FinLit - Uč sa financie zábavne!">
+    <meta property="twitter:description" content="Slovenská platforma pre hravé finančné vzdelávanie. Interaktívne lekcie, simulácie a AI asistent.">
+    <meta property="twitter:image" content="https://finlitacademy.sk/img/og-preview.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -194,7 +209,7 @@
                 <div class="mission-grid">
                     <div class="mission-text">
                         <span class="badge">Naša Misia</span>
-                        <h2>Sme FinLit o.z. – učíme Slovensko rozumieť peniazom</h2>
+                        <h2>Sme FinLit – učíme Slovensko rozumieť peniazom</h2>
                         <p>Sme nezisková iniciatíva, ktorej cieľom je zvýšiť finančnú gramotnosť na Slovensku. Veríme,
                             že vzdelanie v oblasti financií by malo byť dostupné pre každého, bez ohľadu na vek či
                             zázemie.</p>
@@ -295,7 +310,8 @@
                 </div>
                 <!-- Device controls -->
                 <div class="controls mt-4">
-                    <button class="btn-secondary" onclick="document.getElementById('appFrame').src='finlit.html'">Otvoriť
+                    <button class="btn-secondary"
+                        onclick="document.getElementById('appFrame').src='finlit.html'">Otvoriť
                         Test</button>
                     <button class="btn-secondary"
                         onclick="document.getElementById('appFrame').src='finlitgraf.html'">Otvoriť Graf</button>
@@ -360,12 +376,65 @@
                 <div class="join-grid">
                     <div class="join-box">
                         <h2>Dostávaj novinky zo sveta financií</h2>
-                        <p>Prihlás sa na odber noviniek a získaj prístup k novým zo informáciám zo sveta, domova a
+                        <p>Prihlás sa na odber noviniek a získaj prístup k novým informáciám zo sveta, domova a
                             FinLit-u.</p>
-                        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Ďakujeme za odber!');">
-                            <input type="email" placeholder="Tvoj e-mail" required>
-                            <button type="submit" class="btn-primary">Odoberať</button>
-                        </form>
+                        <!-- Native Brevo Form -->
+                        <div id="newsletter-container">
+                            <form id="brevo-form" class="newsletter-form-native"
+                                action="https://9b8e9b3f.sibforms.com/serve/MUIFAG_wjs9Byfppid5DbjMPaGiwLTGCi7VhJGIhTkPqF_aiggKXhBIBzY1WcwPyzjpExtVmXyHYkj7LpWj5-jg3SRFXIzwwBpE2h4W172JXDTAMeyi8r-MjG1IGe98Z0J514IqdnWmV2kPTxG0UXDXQzjRNM7MQBtmGol3eWk3Ts4nubIeqtFa3TcwAYr8BVbngyhOSK5IqUNrf2w=="
+                                method="POST" target="hidden_iframe">
+
+                                <div class="newsletter-input-group">
+                                    <input type="email" name="EMAIL" placeholder="Tvoj e-mail" required>
+                                    <button type="submit" class="btn-primary">Odoberať</button>
+                                </div>
+
+                                <label class="newsletter-consent">
+                                    <input type="checkbox" name="POTVRDENIE_CAPTCHA" value="1" required>
+                                    <span>Súhlasím so spracovaním údajov pre účely zasielania noviniek.</span>
+                                </label>
+
+                                <!-- Hidden Fields for Brevo -->
+                                <div class="hidden-fields">
+                                    <input type="text" name="email_address_check" value="">
+                                    <input type="hidden" name="locale" value="en">
+                                </div>
+
+                                <!-- Brevo Legal & Branding -->
+                                <div class="newsletter-footer">
+                                    <p>Používame platformu <strong>Brevo</strong> ako náš marketingový nástroj. Odoslaním
+                                        tohto formulára súhlasíte s tým, že vaše osobné údaje budú prenesené spoločnosti
+                                        Brevo na spracovanie v súlade s ich <a
+                                            href="https://www.brevo.com/en/legal/privacypolicy/" target="_blank">zásadami
+                                            ochrany súkromia</a>.</p>
+                                    <p class="unsubscribe-info">Z odberu sa môžete kedykoľvek odhlásiť pomocou odkazu v
+                                        našom newsletteri.</p>
+                                </div>
+                            </form>
+
+                            <!-- Success Message -->
+                            <div id="newsletter-success" class="success-message">
+                                <i class="fas fa-check-circle"></i>
+                                <h3>Ďakujeme!</h3>
+                                <p>Tvoj odber bol úspešne potvrdený.</p>
+                            </div>
+                        </div>
+
+                        <!-- Hidden Iframe to handle submission without reload -->
+                        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+                            onload="if(submitted) { showNewsletterSuccess(); }"></iframe>
+
+                        <script>
+                            var submitted = false;
+                            document.getElementById('brevo-form').onsubmit = function () {
+                                submitted = true;
+                            };
+
+                            function showNewsletterSuccess() {
+                                document.getElementById('brevo-form').style.display = 'none';
+                                document.getElementById('newsletter-success').style.display = 'block';
+                            }
+                        </script>
                     </div>
                     <div class="join-box">
                         <h2>Podporte našu misiu</h2>
@@ -393,7 +462,7 @@
                         <div class="info-item centered">
                             <h2>Kontaktuj nás na:</h2>
                             <i class="fas fa-envelope"></i>
-                            <a href="mailto:lukasroman209@gmail.com" class="contact-email">lukasroman209@gmail.com</a>
+                            <a href="mailto:info@finlitacademy.sk" class="contact-email">info@finlitacademy.sk</a>
                         </div>
                     </div>
                 </div>
@@ -404,17 +473,16 @@
 
     <footer>
         <div class="container text-center">
-            <div class="footer-logo">FinLit</div>
             <div class="footer-info">
-                <p><strong>FinLit o.z.</strong></p>
-                <p>IČO: X | lukasroman209@gmail.com</p>
+                <p><strong>FinLit Academy o.z.</strong></p>
+                <p>IČO: X | info@finlitacademy.sk</p>
                 <div class="social-links">
                     <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-            <p class="copyright">&copy; 2026 FinLit Learning. Všetky práva vyhradené. | <a href="#">Ochrana údajov</a>
+            <p class="copyright">&copy; 2026 FinLit Academy o.z. Všetky práva vyhradené. | <a href="#">Ochrana
+                    údajov</a>
             </p>
         </div>
     </footer>
